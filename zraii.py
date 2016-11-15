@@ -9,7 +9,7 @@
 #
 
 import sys
-from lib.chrome import ChromeParser
+from libs.chrome import ChromeParser
 
 #
 # Define the version

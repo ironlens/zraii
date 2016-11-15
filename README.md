@@ -1,18 +1,25 @@
-# zraii
-Web-browser Extension Security Analyzer
+# zraii - Web extension security analyzer
 
-This tool is a WIP and is designed to analyze browser extensions (chrome at the moment) to see how they utilize the permissions they have been granted.
+Zraii is designed to speed the process of analyzing web browser extensions, plugins and add-ons. It sifts through extension files, manifests and configurations to build a profile on the extension and how it operates. This information can help you as you review extensions for security issues
 
+Presently Zraii can work with Chrome extensions and will analyze all of the extensions that you have installed
 
-Prep for use:
+# Prep for use:
 - Install virtualenv (sudo pip virtualenv)
 - Activate your virtual environment (source /path/to/virtual_env/bin/activate)
 - pip install -r requirements.txt
 
-Use:
+# Use:
 
-To examine all plugins on your system:
-- python zraii.py
+To examine all plugins/extensions installed in Chrome on your system:
+- python zraii.py chrome
 
-To examine a specific plugin:
-- python zraii.py /path/to/extension
+#Future:
+Examine a specific plugin (chrome):
+- python zraii.py chrome /path/to/extension
+
+Examine a specific plugin (firefox):
+- python zraii.py firefox /path/to/extension
+
+Examine all plugins installed in firefox on your system:
+- python zraii.py firefox
