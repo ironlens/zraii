@@ -1,3 +1,7 @@
+# Copyright 2016 Rion Carter
+#
+# License: GPLv3
+
 import os
 import os.path
 import platform
@@ -83,7 +87,7 @@ class ChromeParser(object):
 
 
     def analyze_file(self, file, permissions, optional_permissions):
-        file_result = {'http': {}, 'xhr':{}, 'permissions':{}}
+        file_result = {'http': {}, 'https': {}, 'file':{}, 'xhr':{}, 'permissions':{}}
 
         # Read the file
         print(file)
@@ -113,19 +117,47 @@ class ChromeParser(object):
                 # Push the line number and the line into the result dictionary
                 file_result['http'][str(i)] = content_line
 
-            # Check for XHR (As best I can)
+            # check for secure urls (https:)
+            if 'https:' in content_line:
+                # Push the line number and the line into the result dictionary
+                file_result['https'][str(i)] = content_line
+
+            # check for file urls (file:)
+            if 'file:' in content_line:
+                # Push the line number and the line into the result dictionary
+                file_result['file'][str(i)] = content_line
+
+            # Check for XHR via JS and JQuery (As best I can right now)
             if ('XMLHttpRequest' in content_line) or ('.ajax(' in content_line) or ('.get(' in content_line) or ('.post(' in content_line):
                 # Push the line number and the line into the result dictionary
                 file_result['xhr'][str(i)] = content_line
 
-            # check for permissions use
-            permissions_use = []
-            for permission in permissions:
-                if permission in content_line:
-                    permissions_use.append(permission)
+            # Load the permissions regex file
+            #   Use it as a lookup to get the API calls associated with the permission
+            with open("libs/permissions.chrome.json") as permissions_json:
+                permissions_lookup = json.load(permissions_json)
+
+            permissions_used = []
+            for permission in permissions_lookup:
+                if permissions_lookup[permission] in content_line:
+                    permissions_used.append(permission)
+
+            #
+            # The block above will check for all permissions that can be defined
+            #
+            # check for permissions use in both normal and 'optional' permissions blocks
+            #permissions_use = []
+            #for permission in permissions:
+            #    if permission in content_line:
+            #        permissions_use.append(permission)
+
+            #for permission in optional_permissions:
+            #    if permission in content_line:
+            #        permissions_use.append(permission)
 
             # If any permissions are detected, log them in the file_result
-            if len(permissions_use) > 0:
-                file_result['permissions'][str(i)] = {'permissions':permissions_use, 'line_content': content_line}
+            if len(permissions_used) > 0:
+                file_result['permissions'][str(i)] = {'permissions':permissions_used, 'line_content': content_line}
+
 
         return file_result

@@ -46,6 +46,7 @@
   "wallpaper":"chrome.wallpaper",
   "webNavigation":"chrome.webNavigation",
   "webRequest":"chrome.webRequest",
+  "webRequestBlocking":"chrome.webRequest",
   "declarativeWebRequest":"chrome.declarativeWebRequest",
   "automation":"chrome.automation",
   "processes":"chrome.processes",
