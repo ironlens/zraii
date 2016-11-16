@@ -1,0 +1,6 @@
+{
+  "name": "Zraii",
+  "tagline": "Web-browser Extension Security Analyzer",
+  "body": "# zraii - Web extension security analyzer\r\n\r\nZraii is designed to speed the process of analyzing web browser extensions, plugins and add-ons. It sifts through extension files, manifests and configurations to build a profile on the extension and how it operates. This information can help you as you review extensions for security issues\r\n\r\nPresently Zraii can work with Chrome extensions and will analyze all of the extensions that you have installed\r\n\r\n# Prep for use:\r\n- Install virtualenv (sudo pip virtualenv)\r\n- Activate your virtual environment (source /path/to/virtual_env/bin/activate)\r\n- pip install -r requirements.txt\r\n\r\n# Looking for more information?\r\nVisit the [project page on GitHub](https://github.com/ironlens/zraii)",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
